@@ -26,6 +26,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v3
-          with:
-            name: testci-${{ github.ref_name }}
+        with:
+          name: testci-${{ github.ref_name }}
       - run: ls -lha
