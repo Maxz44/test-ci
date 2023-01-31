@@ -3,8 +3,6 @@ name: CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
@@ -13,19 +11,3 @@ jobs:
     steps:
       - name: Run a one-line script
         run: echo Hello, world!
-
-      - run: mkdir a && touch a/a.txt
-      - uses: actions/upload-artifact@v3
-        with:
-          name: testci-${{ github.ref_name }}
-          path: a
-          if-no-files-found: error
-          retention-days: 1
-
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: testci-${{ github.ref_name }}
-      - run: ls -lha
