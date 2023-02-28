@@ -17,7 +17,7 @@ on:
       output2: ${{ steps.step2.outputs.test }}
     steps:
       - id: step1
-        run: echo "test=${{ inputs.name }}|tr -c [:alnum:] _|tr -s _|tr [:upper:] [:lower:]" >> "$GITHUB_OUTPUT"
+        run: echo "test=${{ inputs.name }}" >> "$GITHUB_OUTPUT"
       - id: step2
         run: echo "test=world" >> "$GITHUB_OUTPUT"
   job2:
