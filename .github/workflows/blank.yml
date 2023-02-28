@@ -9,7 +9,7 @@ on:
         required: false
         type: string
 jobs:
-  job1:
+  slugify:
     runs-on: ubuntu-latest
     # Map a step output to a job output
     outputs:
@@ -17,14 +17,14 @@ jobs:
       output2: ${{ steps.step2.outputs.test }}
     steps:
       - id: back_branch
-        run: 'echo "name=$(echo ${{ inputs.name }}|tr -c [:alnum:] _|tr -s _|tr [:upper:] [:lower:])" >> "$GITHUB_OUTPUT"'
+        run: 'echo "name=$(echo ${{ inputs.back_branch }}|tr -c [:alnum:] _|tr -s _|tr [:upper:] [:lower:])" >> "$GITHUB_OUTPUT"'
       - id: step2
         run: echo "test=world" >> "$GITHUB_OUTPUT"
   job2:
     runs-on: ubuntu-latest
-    needs: job1
+    needs: slugify
     steps:
       - env:
-          OUTPUT1: ${{needs.job1.outputs.output1}}
-          OUTPUT2: ${{needs.job1.outputs.output2}}
+          OUTPUT1: ${{needs.slugify.outputs.output1}}
+          OUTPUT2: ${{needs.slugify.outputs.output2}}
         run: echo "$OUTPUT1 $OUTPUT2"
