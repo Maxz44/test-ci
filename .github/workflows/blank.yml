@@ -14,12 +14,12 @@ jobs:
     # Map a step output to a job output
     outputs:
       output1: ${{ steps.back_branch.outputs.name }}
-      output2: ${{ steps.step2.outputs.test }}
+      output2: ${{ steps.front_branch.outputs.name }}
     steps:
       - id: back_branch
-        run: 'echo "name=$(echo ${{ inputs.back_branch }}|tr -c [:alnum:] _|tr -s _|tr [:upper:] [:lower:])" >> "$GITHUB_OUTPUT"'
-      - id: step2
-        run: echo "test=world" >> "$GITHUB_OUTPUT"
+        run: 'echo "name=$(echo -n ${{ inputs.back_branch }}|tr -c [:alnum:] _|tr -s _|tr [:upper:] [:lower:])" >> "$GITHUB_OUTPUT"'
+      - id: front_branch
+        run: echo "name=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
   job2:
     runs-on: ubuntu-latest
     needs: slugify
