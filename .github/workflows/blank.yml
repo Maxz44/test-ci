@@ -3,9 +3,9 @@ name: CI
 on:
   workflow_dispatch:
     inputs:
-      name:
-        description: 'A name to be greeted with'
-        default: 'world'
+      back_branch:
+        description: 'The back branch'
+        default: 'develop'
         required: false
         type: string
 jobs:
@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     # Map a step output to a job output
     outputs:
-      output1: ${{ steps.step1.outputs.test }}
+      output1: ${{ steps.back_branch.outputs.name }}
       output2: ${{ steps.step2.outputs.test }}
     steps:
-      - id: step1
-        run: 'echo "test=$(echo ${{ inputs.name }}|tr -c [:alnum:] _)" >> "$GITHUB_OUTPUT"'
+      - id: back_branch
+        run: 'echo "name=$(echo ${{ inputs.name }}|tr -c [:alnum:] _|tr -s _|tr [:upper:] [:lower:])" >> "$GITHUB_OUTPUT"'
       - id: step2
         run: echo "test=world" >> "$GITHUB_OUTPUT"
   job2:
