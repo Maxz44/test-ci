@@ -8,7 +8,7 @@ on:
         default: 'world'
         required: false
         type: string
-
+jobs:
   job1:
     runs-on: ubuntu-latest
     # Map a step output to a job output
